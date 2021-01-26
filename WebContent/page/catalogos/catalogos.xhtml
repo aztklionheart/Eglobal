@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	template="../home.xhtml">
+	<ui:define name="contentPart">
+		<p:panel id="pnlCatalogos">
+			<h:form id="frmCatalogos">
+
+				<ui:insert name="dialog">
+					<ui:include src="estados.xhtml"></ui:include>
+					<ui:include src="adquirente.xhtml"></ui:include>
+				</ui:insert>
+
+				<p:commandButton value="Consultar Estados" type="button" onclick="PF('dlgEstadosCat').show();" />
+				<p:commandButton value="Consultar Adquirentes" type="button" onclick="PF('dlgAdquirenteCat').show();" />
+
+
+
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

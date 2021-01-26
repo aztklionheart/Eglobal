@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	template="../home.xhtml">
+	<ui:define name="contentPart">
+		<p:panel id="pnlAddTicket" header="Nuevo Ticket">
+			<h:form id="frmAddTicket">
+				<p:growl id="growlAddTicket" sticky="true" showDetail="true">
+					<p:autoUpdate />
+				</p:growl>
+				<div>
+
+					<p:fieldset id="fieldSetAddTicket" legend="Datos de Comercio" toggleable="true" toggleSpeed="500">
+
+						<p:panelGrid id="pnlGrigDetalleComercio" columns="4" cellpadding="15"
+							style="width:90%; background-color: rgb(162, 211, 250) !important;opacity: 0.7;" border="2">
+
+
+							<p:row>
+								<p:column style="background-color: lightgray;important;opacity: 0.7;">
+									<p:outputLabel value="Afiliacion :" />
+								</p:column>
+								<p:column colspan="2">
+									<p:outputLabel value="#{agregaTicketMB.comercioModel.afiliacion}" />
+								</p:column>
+								<p:column style="background-color: white;margin-left:10">
+									<p:outputLabel value="Razón Social :" />
+								</p:column>
+								<p:column>
+									<p:outputLabel value="#{agregaTicketMB.comercioModel.razonSocial}" />
+								</p:column>
+
+							</p:row>
+							<p:row>
+								<p:column style="background-color: white;margin-left:10">
+									<p:outputLabel value="Giro :" />
+								</p:column>
+								<p:column>
+									<p:outputLabel value="#{agregaTicketMB.comercioModel.giro}" />
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column colspan="2">
+									<p:graphicImage url="/imagenes/#{agregaTicketMB.comercioModel.adquirente}.jpg"
+										alt="#{agregaTicketMB.comercioModel.adquirente}" title="#{agregaTicketMB.comercioModel.adquirente}" />
+								</p:column>
+							</p:row>
+
+						</p:panelGrid>
+					</p:fieldset>
+
+					<br />
+					<p:separator style="width:86%;height:12px;opacity: 0.7;" />
+					<!-- wizard -->
+
+					<!-- personas -->
+					<p:wizard flowListener="#{agregaTicketMB.onFlowProcess}">
+						<p:tab id="addTicketContactos" title="Contactos">
+							<p:panel header="Administrar Contactos">
+								<p:messages />
+
+								<!-- tabla -->
+								<p:dataTable id="addTicketAdminContanctos" var="contacto" value="#{agregaTicketMB.contactos}" 
+									rowKey="#{contacto.telefono}" selection="#{agregaTicketMB.contactoSelected}" selectionMode="single">
+									<f:facet name="header">
+						                Click derecho para opciones
+						                
+						            </f:facet>
+
+									<p:column headerText="Nombre">
+										<h:outputText value="#{contacto.nombre}" />
+									</p:column>
+									<p:column headerText="Primer Apellido">
+										<h:outputText value="#{contacto.primerApellido}" />
+									</p:column>
+									<p:column headerText="Segundo Apellido">
+										<h:outputText value="#{contacto.segundoApellido}" />
+									</p:column>
+									<p:column headerText="Teléfono">
+										<h:outputText value="#{contacto.telefono}" />
+									</p:column>
+								</p:dataTable>
+
+								<!-- context menu -->
+								<p:contextMenu for="addTicketAdminContanctos">
+									<p:menuitem value="Editar" update="productDetail" icon="pi pi-search" oncomplete="PF('productDialog').show()"  />
+									<p:menuitem value="Borrar" update="addTicketAdminContanctos" icon="pi pi-times"
+										action="#{agregaTicketMB.borrarContacto()}" />
+								</p:contextMenu>
+
+								<!-- dialog -->
+
+								<p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade"
+									resizable="false">
+									<p:outputPanel id="productDetail" style="text-align:center;">
+										<p:column rendered="true">
+											<div class="product">
+												<div class="product-grid-item border-0" style="margin-bottom: 0">
+													<div class="product-grid-item-top">
+														<div>
+															<i class="pi pi-tag product-category-icon" /> <span class="product-category">#{agregaTicketMB.contactoSelected.nombre}</span>
+														</div>
+														<span>#{agregaTicketMB.contactoSelected.segundoApellido}</span>
+													</div>
+													<div class="product-grid-item-content">
+														<div class="product-name">#{agregaTicketMB.contactoSelected.nombre}</div>
+														<div class="product-description">#{agregaTicketMB.contactoSelected.primerApellido}</div>
+													</div>
+													<div class="product-grid-item-bottom">
+														<h:outputText value="#{agregaTicketMB.contactoSelected.telefono}" styleClass="product-price">
+															<f:convertNumber currencySymbol="$" type="currency" />
+														</h:outputText>
+														<p:commandButton type="button" value="Add To Cart" icon="pi pi-shopping-cart" disabled="false">
+														</p:commandButton>
+													</div>
+												</div>
+											</div>
+										</p:column>
+									</p:outputPanel>
+								</p:dialog>
+
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="addTicketServicio" title="Servicio">
+							<p:panel header="tipo Servicio">
+								<p:messages />
+								<div class="card">
+									<p:multiSelectListbox value="#{agregaTicketMB.selection}" effect="slide" header="Categories" showHeaders="true">
+										<f:selectItems value="#{agregaTicketMB.categorias}" />
+									</p:multiSelectListbox>
+								</div>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="addTicketCoometario" title="Comentario">
+
+							<p:inputTextarea rows="6" cols="33" />
+							
+							 <p:button icon="pi pi-check" styleClass="rounded-button ui-button-outlined" />
+
+						</p:tab>
+
+					</p:wizard>
+
+
+
+
+
+
+					<p:separator style="width:86%;height:12px;opacity: 0.7;" />
+
+					<p:separator style="width:86%;height:12px;opacity: 0.7;" />
+
+					<p:outputLabel value="Folio : " />
+					<p:outputLabel value="#{agregaTicketMB.calculaFolio()}" />
+
+
+
+				</div>
+
+
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

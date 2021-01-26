@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+		<h:form>
+		
+		<p:outputLabel for="adq" value="Selecciona un Adquiriente" />
+		
+        <p:selectOneMenu id="adq" value="#{adquirenteMB.adquirienteModelSelected}"
+         style="width:125px" dir="Adquiriente">
+            <f:selectItem itemLabel="Seleccionar uno" itemValue="" />
+            <f:selectItems value="#{adquirenteMB.lstAdquirienteModel}"  var="adquirente" itemLabel="#{adquirenteMB.llenaAutoCompliteInput(adquirente)}" converter="entityConverter"> 
+            </f:selectItems>
+        </p:selectOneMenu>
+        
+        
+        
+        <br></br>
+        
+        
+        
+        <p:selectOneMenu id="cmbAdsList"  filter="true" style="width:200px"
+                                 styleClass="selectOneMenu" converter="entityConverter"
+                                 value="#{adquirenteMB.adquirienteModelSelected}" >
+                    <f:selectItem  itemValue="#{null}"
+                                   itemLabel="Elegir un Adquirente..." noSelectionOption="true"
+                                   itemDisabled="false" />
+
+                    <f:selectItems  value="#{adquirenteMB.lstAdquirienteModel}" 
+                                    var="adquirente" 
+                                    itemLabel="#{adquirente.claveAdquiriente} - #{adquirente.adquiriente} "
+                                    itemValue="#{adquirente}" >
+<!--                                     <p:ajax event="itemSelect" listener="#{tramite.buscaAfiliacion}" update="msgs" /> -->
+                                    </f:selectItems>
+        </p:selectOneMenu>     
+
+		</h:form>
+
+</ui:composition>

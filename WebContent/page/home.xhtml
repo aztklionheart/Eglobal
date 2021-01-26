@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view contentType="text/html;charset=utf-8" encoding="UTF-8">
+
+	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
+
+
+	<h:head>
+		<title><ui:insert name="pageTitleText">e-Global</ui:insert></title>
+		<link rel="stylesheet" type="text/css" href="css/primeflex/primeflex.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/primeflex/primeflex.css" />
+		<ui:insert name="extraHeadInfo">
+
+		</ui:insert>
+	</h:head>
+
+	<h:body>
+
+
+
+		<div id="principally">
+
+			<div id="northUnit" style="padding-bottom: 10px;" >
+
+				<ui:insert name="headerPart">
+					<p:panelGrid id="panelHead" style="border-style: none;height:70;width:99%;cellpadding:10; align:center;">
+						<p:row>
+							<p:column style="border-style: none">
+								<p:graphicImage value="/imagenes/ico-eglobal.png" title="ift-img-logo" height="55" />
+							</p:column>
+							<p:column style="border-style: none">
+								<h:outputText value="Trámites" />
+
+							</p:column>
+							<p:column style="border-style: none">
+<!-- 								<h:outputText value="#{tramite.name}" /> -->
+							</p:column>
+							<p:column style="border-style: none">
+								<h:form id="frmBtnAdquirente">
+
+								</h:form>
+
+							</p:column>
+
+						</p:row>
+					</p:panelGrid>
+
+				</ui:insert>
+			</div>
+
+			<div class="p-grid">
+				<div class="p-col-2" style="width: 17%;" >
+
+					<p:tieredMenu toggleable="true" id="pnlMenu" style="width:94%;">
+
+						<p:menuitem value="Comercios" url="/Ejem1_saml/page/comercios/comercios.xhtml" />
+						<p:menuitem value="Administración" url="/Ejem1_saml/page/administracion/administracion.xhtml" />
+
+						<p:submenu label="Cátalogos">
+							<p:menuitem value="Catalogos" url="/Ejem1_saml/page/catalogos/catalogos.xhtml" />
+						</p:submenu>
+						<p:menuitem value="Reportes" url="/Ejem1_saml/page/reportes/reportes.xhtml" />
+
+
+						<p:separator>
+						</p:separator>
+					</p:tieredMenu>
+
+				</div>
+				<div class="p-col-6" style="width: 82%;">
+
+					<ui:insert name="contentPart">
+
+						<p>
+							Trámites. <br /> <br /> Texto ejemmplo
+						</p>
+						<br />
+
+
+					</ui:insert>
+				</div>
+			</div>
+
+
+			<div position="south" size="35">
+				<ui:insert name="footerPArt">
+					<div style="text-align: center; font-size: 8pt">E global</div>
+				</ui:insert>
+			</div>
+		</div>
+
+
+
+		<ui:insert name="outLayoutPart">
+			<!-- Usar este define para declarar dialogos o cosas que no interactuan muy bien con el p:layout -->
+		</ui:insert>
+	</h:body>
+
+
+</f:view>
+</html>

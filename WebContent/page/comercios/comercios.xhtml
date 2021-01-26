@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	template="../home.xhtml">
+
+
+
+	<ui:define name="contentPart">
+	
+		<p:panel id="pnlBuscaComercio">
+			<h:form>
+				<p:focus for="comercioAutoComplete">
+				</p:focus>
+
+				<div class="ui-g">
+					<div class="ui-g-6">
+					<p:growl id="growlComercios" showDetail="true"><p:autoUpdate /> </p:growl>
+					<h:message />
+						<p:autoComplete id="comercioAutoComplete" onfocus="this.setSelectionRange(0, this.value.length)"
+							onclick="this.setSelectionRange(0, this.value.length)" placeholder="Afiliación" size="50" maxResults="6" minQueryLength="3" 
+							value="#{comercioMB.comercioModelSelected}" converter="entityConverter" alt="escribe" title="Afiliación" 
+							completeMethod="#{comercioMB.autoCompleteComercio}" var="comercio" autoSelection="false" styleClass="inputText"
+							cache="false" itemLabel="#{comercioMB.autocompleteInput(comercio)}" itemValue="#{comercio}" 
+							emptyMessage="No hay coincidencias">
+							<p:ajax event="itemSelect" update="datosComerciales" />
+							<p:ajax event="itemSelect" update="addTicket" />
+							<p:ajax event="itemSelect" update="tblComercioHistTickets" />
+						</p:autoComplete>
+					</div>
+					<div class="ui-g-6" style="text-align: end;">
+						<p:commandButton action="#{comercioMB.abreAccion('agregarTicket')}" id="addTicket"
+							disabled="#{comercioMB.activaBoton()}" style="margin-left: 20%; width:15%" icon="pi pi-ticket"
+							title="Agregar Ticket" alt="Agregar nuevo Ticket" />
+					</div>
+				</div>
+
+				<p:fieldset legend="Datos de Comercio" toggleable="false"
+					style="background-color: aliceblue; background-attachment: fixed;">
+
+
+					<p:panelGrid title="Datos Empresa" cellpadding="15" id="datosComerciales" width="95%"
+						style="width:90%; background-color: rgb(162, 211, 250) !important;opacity: 0.7;" border="2">
+						<p:row>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conAfiliacion" style="font-weight: bold;" value="Afiliación" />
+							</p:column>
+							<p:column style="background-color: white;margin-left:10">
+								<h:outputText id="conAfiliacion" value="#{comercioMB.comercioModelSelected.afiliacion}" />
+							</p:column>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conRazonSocial" style="font-weight: bold;" value="Razón Social" />
+							</p:column>
+							<p:column>
+								<h:outputText id="conRazonSocial" value="#{comercioMB.comercioModelSelected.razonSocial}" />
+							</p:column>
+						</p:row>
+
+
+						<p:row>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conCalle" style="font-weight: bold;" value="Calle " />
+							</p:column>
+							<p:column>
+								<h:outputText id="conCalle" value="#{comercioMB.comercioModelSelected.calle}" />
+							</p:column>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conColonia" style="font-weight: bold;" value="Colonia" />
+							</p:column>
+							<p:column>
+								<h:outputText id="conColonia" value="#{comercioMB.comercioModelSelected.colonia}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conCiudad" style="font-weight: bold;" value="Ciudad " />
+							</p:column>
+							<p:column>
+								<h:outputText id="conCiudad" value="#{comercioMB.comercioModelSelected.ciudad}" />
+							</p:column>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conEntidadFederativa" style="font-weight: bold;" value="Entidad Federativa" />
+							</p:column>
+							<p:column>
+								<h:outputText id="conEntidadFederativa" value="#{comercioMB.comercioModelSelected.entidadFederativa}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conCP" style="font-weight: bold;" value="Código Postal " />
+							</p:column>
+							<p:column>
+								<h:outputText id="conCP" value="#{comercioMB.comercioModelSelected.codigoPostal}" />
+							</p:column>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="contelefono" style="font-weight: bold;" value="Teléfono" />
+							</p:column>
+							<p:column>
+								<h:outputText id="contelefono" value="#{comercioMB.comercioModelSelected.telefono}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conAdquirente" style="font-weight: bold;" value="Adquirente " />
+							</p:column>
+							<p:column>
+								<h:outputText id="conAdquirente" value="#{comercioMB.comercioModelSelected.adquirente}" />
+							</p:column>
+							<p:column style="background-color: lightgray;important;opacity: 0.7;">
+								<h:outputLabel for="conGiro" style="font-weight: bold;" value="Giro" />
+							</p:column>
+							<p:column>
+								<h:outputText id="conGiro" value="#{comercioMB.comercioModelSelected.giro}" />
+							</p:column>
+						</p:row>
+
+
+					</p:panelGrid>
+
+				</p:fieldset>
+
+				<p:fieldset legend="Historial" toggleable="true" style="background-color: aliceblue; background-attachment: fixed;">
+
+					<div class="card">
+						<p:dataTable id="tblComercioHistTickets" var="ticket" value="#{comercioMB.comercioModelSelected.lstTickets}" stickyHeader="true" stickyTopAt=".layout-topbar">
+							<p:column headerText="Id">
+								<h:outputText value="#{ticket.idTicket}" />
+								<p:skeleton/>
+							</p:column>
+							<p:column headerText="descripcion">
+								<h:outputText value="#{ticket.descripcion}" />
+								<p:skeleton/>
+							</p:column>
+							<p:column headerText="idComercio">
+								<h:outputText value="#{ticket.idComercio}" />
+								<p:skeleton/>
+							</p:column>
+							<p:column headerText="idAdquirente">
+								<h:outputText value="#{ticket.idAdquirente}" />
+								<p:skeleton/>
+							</p:column>
+							<p:column headerText="Persona">
+								<h:outputText value="#{ticket.atencion.nombre}  #{ticket.atencion.primerApellido}"/>
+								<p:skeleton/>
+							</p:column>
+						</p:dataTable>
+					</div>
+
+				</p:fieldset>
+
+
+
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
